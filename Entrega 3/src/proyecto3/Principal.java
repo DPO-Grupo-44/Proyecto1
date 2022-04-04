@@ -77,7 +77,8 @@ public class Principal {
 		System.out.println("2. Crear Un Proyecto");
 		System.out.println("3. Agregar Un Participante");
 		System.out.println("4. Crear Una Actividad");
-		System.out.println("5. Salir de la Aplicacion");
+		System.out.println("5. Modificar Una Actividad");
+		System.out.println("6. Salir de la Aplicacion");
 		
 	}
 	
