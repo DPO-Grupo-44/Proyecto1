@@ -47,6 +47,10 @@ public class Proyecto {
 		return fechafin;
 	}
 	
+	public ArrayList<String> getTipos(){
+		return tipos;
+	}
+	
 	public ArrayList<Participante> getParticipantes(){
 		return listaparticipantes;
 	}

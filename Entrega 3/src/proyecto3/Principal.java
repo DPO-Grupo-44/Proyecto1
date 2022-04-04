@@ -174,6 +174,7 @@ public class Principal {
 		Actividad nuevaActividad = new Actividad(titulo, descripcion, tipo, fecha, horai, 
 				horaf, encargado);
 		tproyecto.agregarActividades(nuevaActividad);
+		System.out.println("Actividad agregada de forma exitosa");
 		}
 	
 	public Participante estaParticipante(String nombre, Proyecto tproyecto) {
@@ -198,6 +199,11 @@ public class Principal {
 			encargado = estaParticipante(nombre, tproyecto);
 			if (encargado == null) {
 				System.out.println("El estudiante no hace parte del proyecto, por favor seleccione otro");
+				System.out.println("Tipos validos: \n");
+				
+				for (int j=0;j<tproyecto.getParticipantes().size();j++) {
+					System.out.println(tproyecto.getParticipantes().get(j));
+				}
 			}
 			else {
 				incorrecto = false;
@@ -220,6 +226,10 @@ public class Principal {
 			}
 			else {
 				System.out.println("El tipo no hace parte del proyecto, por favor seleccione otro");
+				System.out.println("Tipos validos: \n");
+				for (int j=0;j<tproyecto.getTipos().size();j++) {
+					System.out.println(tproyecto.getTipos().get(j));
+				}
 			}
 		}
 		return tipo;
