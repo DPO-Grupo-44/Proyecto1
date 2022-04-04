@@ -18,7 +18,67 @@ public class Principal {
 	    
 	  }
 	public void ejecutarAplicacion() {
-		crearnuevoProyecto();
+		boolean continuar = true;
+		while(continuar) {
+		try {
+			mostrarMenu();
+			int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opci√≥n"));
+			ArrayList<Proyecto> proyectosdisp = lab.getProyectos();
+			if (opcion_seleccionada == 1) {
+				
+			}	
+			else if (opcion_seleccionada == 2)
+			{
+				
+				crearnuevoProyecto();
+			}
+			else if (opcion_seleccionada == 3)
+			{
+				if (proyectosdisp.size() < 1) {
+					System.out.println("No hay proyectos disponibles, cree uno primero");
+				}
+				else {
+					int pos = mostrarProyectos(proyectosdisp);
+					Proyecto ubicacion = proyectosdisp.get(pos);
+					agregarMasParticipantes(ubicacion);
+				}
+			}
+			else if (opcion_seleccionada == 4)
+			{
+				if (proyectosdisp.size() < 1) {
+					System.out.println("No hay proyectos disponibles, cree uno primero");
+				}
+				else {
+					int pos = mostrarProyectos(proyectosdisp);
+					Proyecto ubicacion = proyectosdisp.get(pos);
+					agregarActividades(ubicacion);
+				}
+			}
+			
+			else if (opcion_seleccionada == 5) {
+				continuar = false;
+			}
+			
+			else {
+				System.out.println("Opcion no valida, por favor seleccione otra");
+			}
+		}
+		catch (NumberFormatException e)
+		{
+			System.out.println("Debe seleccionar uno de los n√∫meros de las opciones.");
+		}
+	}
+	}
+	
+	public void mostrarMenu()
+	{
+		System.out.println("\nOpciones de la aplicaci√≥n\n");
+		System.out.println("1. Cargar Un Archivo");
+		System.out.println("2. Crear Un Proyecto");
+		System.out.println("3. Agregar Un Participante");
+		System.out.println("4. Crear Una Actividad");
+		System.out.println("5. Salir de la Aplicacion");
+		
 	}
 	
 	public void crearnuevoProyecto() {
@@ -31,9 +91,7 @@ public class Principal {
 		Participante dueÒo = crearnuevoParticipante();
 		proyectoNuevo.setDueÒo(dueÒo);
 		proyectoNuevo.agregarParticipantes(dueÒo);
-		agregarMasParticipantes(proyectoNuevo);
 		agregarTipos(proyectoNuevo);		
-		crearnuevaActividad(proyectoNuevo);
 		
 		
 	}
@@ -139,7 +197,7 @@ public class Principal {
 			String nombre = input("Nombre del encargado");
 			encargado = estaParticipante(nombre, tproyecto);
 			if (encargado == null) {
-				System.out.println("El estudiante no hace parte del proyecto");
+				System.out.println("El estudiante no hace parte del proyecto, por favor seleccione otro");
 			}
 			else {
 				incorrecto = false;
@@ -157,11 +215,11 @@ public class Principal {
 			tipo = input("Tipo");
 			boolean yaesta = tproyecto.buscarTipo(tipo);
 			if (yaesta) {
-				System.out.println("El tipo no hace parte del proyecto, por favor seleccione otro");
+				incorrecto = false;
 				
 			}
 			else {
-				incorrecto = false;
+				System.out.println("El tipo no hace parte del proyecto, por favor seleccione otro");
 			}
 		}
 		return tipo;
@@ -188,5 +246,13 @@ public class Principal {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	public int mostrarProyectos(ArrayList<Proyecto> proyectosdisp) {
+		System.out.println("Seleccione el proyecto del que quiere hacer las modificaciones");
+		for (int j=0;j<proyectosdisp.size();j++) {
+			System.out.println(j+"-" + " " + proyectosdisp.get(j).getNombre());
+		}
+		int respuesta = Integer.parseInt(input("Numero"));
+		return respuesta;
 	}
 }

@@ -9,6 +9,10 @@ public class Laboratorio {
 		listaProyectos = new ArrayList<Proyecto>();
 	}
 	
+	public ArrayList<Proyecto> getProyectos(){
+		return listaProyectos;
+	}
+	
 	public void agregarProyectos(Proyecto tproyecto) {
 		listaProyectos.add(tproyecto);
 	}
