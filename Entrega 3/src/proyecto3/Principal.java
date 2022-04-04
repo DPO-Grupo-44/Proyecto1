@@ -17,8 +17,8 @@ public class Principal {
 	    System.out.println(tiempo.getMinute());
 	    System.out.println(tiempo.getMonthValue());
 	    System.out.println(tiempo);
-	    System.out.printlnt("Pruebas123");
-	    System.out.printlnt("Pruebas123");
+	    System.out.println("Pruebas123");
+	    System.out.println("Pruebas123");
 	    Principal Consola = new Principal();
 	    Consola.ejecutarAplicacion();
 	    
