@@ -9,12 +9,13 @@ import java.util.*;
 public class Cronometro {
 	public static void main()
 {
-	
-	{		
+	{
+	String time = " ";
 	int dias = 0;
 	int horas = 0;
 	int minutos = 0;
 	int segundo = 0;
+	
 	
 	Scanner Input = new Scanner(System.in);
 	
@@ -28,7 +29,7 @@ public class Cronometro {
 	if (Finalizar.charAt(0) == 'Y') 
 		{
 		Calendar FinCronometro = Calendar.getInstance();
-		long HoraFinal = InicioCronometro.getTimeInMillis();
+		long HoraFinal = FinCronometro.getTimeInMillis();
 		long tiempoMillis = HoraFinal - HoraInicio;
 		segundo = (int) (tiempoMillis / 1000);
 		if (segundo > 59) 
@@ -50,8 +51,10 @@ public class Cronometro {
 		}
 		}
 	
-	
+	time = (dias + " " + horas + " " + minutos + " " + segundo);
+	System.out.println(time);
 	}
+	
 
 }
 }
