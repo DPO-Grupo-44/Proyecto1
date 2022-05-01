@@ -26,13 +26,15 @@ public class CargaDeDatos {
     private int var2 = 1;
 
 
-    public void leerArchivo_participantes(){
+    public void leerArchivo_participantes(Laboratorio laboratorio){
         try {
             lector_participantes = new BufferedReader((new FileReader(ruta_participantes)));
             while ((linea_participantes = lector_participantes.readLine()) != null){
                 partes_participantes = linea_participantes.split(",");
                 if (var1 == 1){
-                    new Participante(partes_participantes[0].substring(1, partes_participantes[0].length()-1),partes_participantes[1].substring(1,partes_participantes[1].length()-1));
+                    Participante nuevo = new Participante(partes_participantes[0].substring(1, partes_participantes[0].length()-1),partes_participantes[1].substring(1,partes_participantes[1].length()-1));
+                    Proyecto proy = laboratorio.buscarProyecto(partes_participantes[2].substring(1,partes_participantes[2].length()-1));
+                    proy.agregarParticipantes(nuevo);
                 }
                 var1 = 1;
             }
@@ -45,7 +47,7 @@ public class CargaDeDatos {
         }
     }
 
-    public void leerArchivo_proyectos(){
+    public void leerArchivo_proyectos(Laboratorio laboratorio){
 
         try {
             lector_proyectos = new BufferedReader((new FileReader(ruta_proyectos)));
@@ -65,10 +67,12 @@ public class CargaDeDatos {
                     nom = secc[0];
                     corr = secc[1];
                     Participante persona = new Participante(nom, corr);
+                    
 
 
 
-                    new Proyecto(partes_proyectos[0].substring(1, partes_proyectos[0].length()-1), partes_proyectos[1].substring(1, partes_proyectos[1].length()-1), fechainicio,  persona, fechafin);
+                    Proyecto nuevo = new Proyecto(partes_proyectos[0].substring(1, partes_proyectos[0].length()-1), partes_proyectos[1].substring(1, partes_proyectos[1].length()-1), fechainicio,  persona, fechafin);
+                    laboratorio.agregarProyectos(nuevo);
                 }
                 var2 = 1;
             }
@@ -77,7 +81,7 @@ public class CargaDeDatos {
             partes_proyectos = null;
         }
         catch (Exception e){
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showInputDialog("No se encontro el archivo", e);
         }
     }
 

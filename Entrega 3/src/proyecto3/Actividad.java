@@ -2,7 +2,9 @@ package proyecto3;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class Actividad {
@@ -10,20 +12,56 @@ public class Actividad {
 	private String descripcion;
 	private String tipo;
 	private LocalDate fecha;
+	private LocalDate fechaf;
 	private LocalTime horai;
 	private LocalTime horaf;
 	private Participante encargado;
 	
-	public Actividad (String ttitulo, String tdescripcion, String ttipo, LocalDate tfecha, 
+	public Actividad (String ttitulo, String tdescripcion, String ttipo, LocalDate tfecha, LocalDate tfechaf,
 			LocalTime thorai, LocalTime thoraf, Participante tparticipante) {
 		titulo = ttitulo;
 		descripcion = tdescripcion;
 		fecha = tfecha;
+		fechaf = tfechaf;
 		horai = thorai;
 		horaf = thoraf;
 		tipo = ttipo;
 		encargado = tparticipante;
 	}
 	
+	public void modificarFecha(LocalDate nuevafecha) {
+		fecha = nuevafecha;
+	}
 	
+	public void modificarHoraInicio(LocalTime horaif) {
+		horai = horaif;
+	}
+	
+	public void modificarHoraFin(LocalTime horaff) {
+		horaf = horaff;
+	}
+	
+	public String calcularDuracion() {
+		DateTimeFormatter formateador = DateTimeFormatter.ofPattern("HH:mm:ss");
+		String dateStr = horai.format(formateador);
+		String dateStrf = horaf.format(formateador);
+		LocalTime horainicio = LocalTime.parse(dateStr, formateador);
+		LocalTime horafinal = LocalTime.parse(dateStrf, formateador);
+		int horainiciohoras = horainicio.getHour();
+		int horainiciominutos = horainicio.getMinute();
+		int horainiciosecs = horainicio.getSecond();
+		horafinal = horafinal.minusHours(horainiciohoras);
+		horafinal = horafinal.minusMinutes(horainiciominutos);
+		horafinal = horafinal.minusSeconds(horainiciosecs);
+		String respuesta = horafinal.format(formateador);
+		return respuesta;
+		
+	}
+	
+	public void setHoraf(LocalTime nuevahora) {
+		horaf = nuevahora;
+	}
+	public String getNombre() {
+		return titulo;
+	}
 }

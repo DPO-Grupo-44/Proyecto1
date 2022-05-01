@@ -5,10 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Principal {
 	
 	Laboratorio lab = new Laboratorio();
+	CargaDeDatos cargar = new CargaDeDatos();
 
 	public static void main(String [] args) {
 	
@@ -25,7 +27,8 @@ public class Principal {
 			int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opción"));
 			ArrayList<Proyecto> proyectosdisp = lab.getProyectos();
 			if (opcion_seleccionada == 1) {
-				
+				cargar.leerArchivo_proyectos(lab);
+				cargar.leerArchivo_proyectos(lab);
 			}	
 			else if (opcion_seleccionada == 2)
 			{
@@ -54,8 +57,23 @@ public class Principal {
 					agregarActividades(ubicacion);
 				}
 			}
-			
 			else if (opcion_seleccionada == 5) {
+				int pos = mostrarProyectos(proyectosdisp);
+				Proyecto ubicacion = proyectosdisp.get(pos);
+				ArrayList<Actividad>lista = ubicacion.getActividades();
+				if (lista.size() < 1) {
+					System.out.println("No hay actividades disponibles, cree una primero");
+				}
+				else {
+					int posact = mostrarActividades(lista);
+					Actividad ubact = lista.get(posact);
+					ubact.modificarHoraFin(LocalTime.now());
+				}
+				
+				
+			}
+			
+			else if (opcion_seleccionada == 6) {
 				continuar = false;
 			}
 			
@@ -165,18 +183,32 @@ public class Principal {
 	}
 	
 	public void crearnuevaActividad(Proyecto tproyecto) {
+		LocalTime horai = LocalTime.now();
 		String titulo = input("Titulo");
 		String descripcion = input("Descripcion");
 		String tipo = noEstaTipo(tproyecto);
 		LocalDate fecha = LocalDate.now();
-		LocalTime horai = LocalTime.now();
+		LocalDate fechaf = LocalDate.now();
 		LocalTime horaf = LocalTime.now();
 		Participante encargado = noEstaPar(tproyecto);
-		Actividad nuevaActividad = new Actividad(titulo, descripcion, tipo, fecha, horai, 
+		Actividad nuevaActividad = new Actividad(titulo, descripcion, tipo, fecha, fechaf, horai, 
 				horaf, encargado);
 		tproyecto.agregarActividades(nuevaActividad);
-		System.out.println("Actividad agregada de forma exitosa");
-		}
+		System.out.println("Actividad agregada de forma exitosa, pulse enter");
+		Scanner teclado = new Scanner(System.in);
+		teclado.nextLine(); 
+		System.out.println("\n\t\tSe esta tomando el tiempo de la actividad, presione ENTER para continuar..."); //Mensaje en pantalla
+		teclado.nextLine();
+	    try
+	    {
+	    	nuevaActividad.setHoraf(LocalTime.now());
+			String duracion = nuevaActividad.calcularDuracion();
+			System.out.println("La duracion fue de " + duracion);
+	    }
+	    catch(Exception e)
+	    {}
+		
+	}
 	
 	public Participante estaParticipante(String nombre, Proyecto tproyecto) {
 		
@@ -203,7 +235,7 @@ public class Principal {
 				System.out.println("Tipos validos: \n");
 				
 				for (int j=0;j<tproyecto.getParticipantes().size();j++) {
-					System.out.println(tproyecto.getParticipantes().get(j));
+					System.out.println(tproyecto.getParticipantes().get(j).getNombre());
 				}
 			}
 			else {
@@ -266,4 +298,13 @@ public class Principal {
 		int respuesta = Integer.parseInt(input("Numero"));
 		return respuesta;
 	}
+	
+	public int mostrarActividades(ArrayList<Actividad> actividadesdisp) {
+		System.out.println("Seleccione la actividad de la que va a realizar cambios");
+		for (int j=0;j<actividadesdisp.size();j++) {
+			System.out.println(j+"-" + " " + actividadesdisp.get(j).getNombre());
+	    }
+		int respuesta = Integer.parseInt(input("Numero"));
+		return respuesta;
+	}	
 }

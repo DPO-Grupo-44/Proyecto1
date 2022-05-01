@@ -7,8 +7,7 @@ import java.util.*;
 //Se toma el tiempo que pasa mientras se ejecuta una tarea
 
 public class Cronometro {
-	public static void main()
-{
+	
 	{
 	String time = " ";
 	int dias = 0;
@@ -57,5 +56,5 @@ public class Cronometro {
 	
 
 }
-}
+
 

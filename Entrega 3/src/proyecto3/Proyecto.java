@@ -1,4 +1,4 @@
-package proyecto3;
+ package proyecto3;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -73,5 +73,9 @@ public class Proyecto {
 			}
 		}
 		return res;
+	}
+	
+	public ArrayList<Actividad> getActividades() {
+		return listaactividades;
 	}
 }
