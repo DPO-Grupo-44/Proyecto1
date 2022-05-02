@@ -64,4 +64,17 @@ public class Actividad {
 	public String getNombre() {
 		return titulo;
 	}
+	public LocalDate getFecha() {
+		return fecha;
+	}
+	public void setHora(String hora) {
+		DateTimeFormatter formateador = DateTimeFormatter.ofPattern("HH:mm:ss");
+		LocalTime dateStr = LocalTime.parse(hora, formateador);
+		horai = dateStr;
+	}
+	public void setFecha(String fecha) {
+		DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+		LocalDate dateStr = LocalDate.parse(fecha, formateador);
+		this.fecha = dateStr;
+	}
 }

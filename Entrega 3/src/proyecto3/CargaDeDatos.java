@@ -46,7 +46,7 @@ public class CargaDeDatos {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-
+ 
     public void leerArchivo_proyectos(Laboratorio laboratorio){
 
         try {
